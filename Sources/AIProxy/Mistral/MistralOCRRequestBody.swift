@@ -62,9 +62,11 @@ extension MistralOCRRequestBody {
 
     nonisolated public enum Document: Encodable, Sendable {
         case imageURLChunk(URL)
+        case documentURLChunk(URL)
 
         private enum RootKey: String, CodingKey {
             case imageURL = "image_url"
+            case documentURL = "document_url"
             case type
         }
 
@@ -74,6 +76,9 @@ extension MistralOCRRequestBody {
             case .imageURLChunk(let imageURL):
                 try container.encode(imageURL, forKey: .imageURL)
                 try container.encode("image_url", forKey: .type)
+            case .documentURLChunk(let documentURL):
+                try container.encode(documentURL, forKey: .documentURL)
+                try container.encode("document_url", forKey: .type)
             }
         }
     }
